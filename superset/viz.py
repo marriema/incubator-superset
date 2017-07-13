@@ -81,7 +81,7 @@ class BaseViz(object):
         self.status = self.results.status
         self.error_message = self.results.error_message
 
-        df = self.results.df
+        df = self.results.df  # actual dataframe from pandas
         # Transform the timestamp we received from database to pandas supported
         # datetime format. If no python_date_format is specified, the pattern will
         # be considered as the default ISO date format
@@ -1265,6 +1265,18 @@ class ChordViz(BaseViz):
         }
 
 
+class LatticeViz(BaseViz):
+
+    """A Lattice diagram"""
+
+    viz_type = "lattice"
+    verbose_name = _("Directed Force Layout")
+    credits = '<a href="https://github.com/d3/d3-chord">Bostock</a>'
+    is_timeseries = False
+
+    
+
+
 class CountryMapViz(BaseViz):
 
     """A country centric"""
@@ -1621,6 +1633,7 @@ viz_types_list = [
     MapboxViz,
     HistogramViz,
     SeparatorViz,
+    LatticeViz,
 ]
 
 viz_types = OrderedDict([(v.viz_type, v) for v in viz_types_list
